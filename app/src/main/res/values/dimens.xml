@@ -1,0 +1,7 @@
+<resources>
+
+    <dimen name="list_item_height">136dp</dimen>
+    <dimen name="list_item_padding">8dp</dimen>
+    <dimen name="nick_margin">30dp</dimen>
+
+</resources>

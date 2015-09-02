@@ -1,0 +1,28 @@
+<resources>
+
+    <string name="app_name">InstagramCollage</string>
+    <string name="client_id">a4b3cde66ca64b7e9b6c390220f21085</string>
+
+    <string name="collage">ДАВАЙ КОЛЛАЖ</string>
+    <string name="nick_hint">Ник</string>
+    <string name="my_id">1460256660</string>
+    <string name="url_recent">https://api.instagram.com/v1/users/2912979/media/recent/?access_token=2912979.87fdd31.0949d22f4a714349ae84643c5af165ef</string>
+
+    <string name="error_nick_length">Введите ник</string>
+    <string name="error_nick_characters">Запрещенные символы в нике</string>
+    <string name="error_finding_user">Пользователь не найден</string>
+    <string name="error_no_pictures">У пользователя нет фото</string>
+    <string name="error_collage">Не получилось создать коллаж</string>
+    <string name="error_collage_writing">Ошибка записи коллажа</string>
+
+
+</resources>
+
+
+    <!--max.max.nemax-->
+    <!--CLIENT INFO
+    CLIENT ID	a4b3cde66ca64b7e9b6c390220f21085
+    CLIENT SECRET	251733cd932e47ff919bf4cbf63ce35e
+    WEBSITE URL	https://instagram.com
+    REDIRECT URI	https://instagram.com
+    SUPPORT EMAIL	max_max-nemax@mail.ru-->

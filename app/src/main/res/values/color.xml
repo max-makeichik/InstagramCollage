@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="toolbar">#4caf50</color>
+    <color name="date">#89000000</color>    255 * 0.54 = 137.7 to hex = 89
+    <color name="title">#000000</color>
+    <color name="likes">#DD000000</color>     255 * 0.87 = 221.85 to hex = DD
+
+</resources>
