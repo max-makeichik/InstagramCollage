@@ -1,11 +1,10 @@
-package com.maxmakeychik.instagramcollage;
+package com.maxmakeychik.instagramcollage.data_ops;
 
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
-import com.maxmakeychik.instagramcollage.model.Image;
 import com.maxmakeychik.instagramcollage.model.Media;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -17,27 +16,27 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, List<Media>>> {
+public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, ArrayList<Media>>> {
 
-    private static final String TAG = "GetUserMedia";
     private static final String BASE_URL = "https://api.instagram.com/v1/users/%s/media/recent";
     private static final String CLIENT_ID_TAG = "client_id";
     private static final String CLIENT_ID = "a4b3cde66ca64b7e9b6c390220f21085";
-    private static final String MAX_ID_TAG = "max_id";
+    private static final String NEXT_URL_TAG = "next_url";
     private static final String DATA_KEY = "data";
     private static final String PAGINATION_KEY = "pagination";
+    private static final String TAG = "GetUserMedia";
 
-    protected Uri.Builder uriBuilder;
+    private Uri.Builder uriBuilder;
 
-    public GetUserMedia() {}
+    public GetUserMedia() {
+    }
 
     @Override
-    protected Pair<String, List<Media>> doInBackground(String... params) {
+    protected Pair<String, ArrayList<Media>> doInBackground(String... params) {
         uriBuilder = Uri.parse(String.format(BASE_URL, params[0])).buildUpon();
-        if(params[1] != null)
-            uriBuilder.appendQueryParameter(MAX_ID_TAG, params[1]);
+        if (params[1] != null)
+            uriBuilder.appendQueryParameter(NEXT_URL_TAG, params[1]);
         uriBuilder.appendQueryParameter(CLIENT_ID_TAG, CLIENT_ID);
         Log.d(TAG, "GetUserMedia " + uriBuilder.toString());
 
@@ -48,12 +47,14 @@ public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, 
             JSONObject json = new JSONObject(response.body().string());
             String nextPageUrl = json.getJSONObject(PAGINATION_KEY).optString("next_url", null);
 
-            List<Media> mediaList = new ArrayList<>();
+            ArrayList<Media> mediaList = new ArrayList<>();
 
             JSONArray jsonArray = json.getJSONArray(DATA_KEY);
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if ("media".equals(jsonObject.getString("type")))
+                        mediaList.add(new Media(jsonObject));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

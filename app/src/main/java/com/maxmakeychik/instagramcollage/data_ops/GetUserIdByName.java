@@ -1,4 +1,4 @@
-package com.maxmakeychik.instagramcollage;
+package com.maxmakeychik.instagramcollage.data_ops;
 
 import android.net.Uri;
 import android.os.AsyncTask;
