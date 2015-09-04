@@ -72,17 +72,20 @@ public class MainActivity extends AppCompatActivity {
                         mediaList.addAll(pair.second);
                     if (pair.first != null) //  next url exists
                         getMedia(userId, pair.first);
-                    else{
-                        Intent intent = new Intent(ctx, MostLikedListActivity.class);
-                        if(mediaList.size() > 0)
-                            intent.putParcelableArrayListExtra(MEDIA_LIST_KEY, getMostLikedMedia());
-                        startActivity(intent);
-                    }
+                    else
+                        showMedia();
                 }
                 else
                     Toast.makeText(ctx, getString(R.string.error_finding_user), Toast.LENGTH_SHORT).show();
             }
         }.execute(String.valueOf(userId), nextUrl);
+    }
+
+    private void showMedia() {
+        Intent intent = new Intent(ctx, MostLikedListActivity.class);
+        if(mediaList.size() > 0)
+            intent.putParcelableArrayListExtra(MEDIA_LIST_KEY, getMostLikedMedia());
+        startActivity(intent);
     }
 
     private ArrayList<Media> getMostLikedMedia() {
