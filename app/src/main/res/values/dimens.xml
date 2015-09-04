@@ -1,7 +1,31 @@
 <resources>
 
-    <dimen name="list_item_height">136dp</dimen>
-    <dimen name="list_item_padding">8dp</dimen>
+    <!--username-->
     <dimen name="nick_margin">30dp</dimen>
+
+    <!--media-->
+    <dimen name="toolbar_title_textsize">20sp</dimen>
+
+    <dimen name="list_item_height">136dp</dimen>
+    <dimen name="list_item_margin">4dp</dimen>  <!--4 + 4 = 8-->
+    <dimen name="list_item_content_padding_right">16dp</dimen>
+
+
+    <dimen name="media_data_margin_right">16dp</dimen>
+
+    <dimen name="media_date_height">16dp</dimen>
+    <dimen name="media_date_padding_top">16dp</dimen>
+
+    <dimen name="media_text_height">32dp</dimen>
+    <dimen name="media_text_textsize">28sp</dimen>
+
+    <dimen name="media_likes_height">16dp</dimen>
+    <dimen name="media_likes_textsize">12sp</dimen>
+
+
+    <dimen name="collage_padding_top">20dp</dimen>
+    <dimen name="media_date_margin_top">16dp</dimen>
+    <dimen name="media_date_drawable_padding">8dp</dimen>
+    <item name="collage_letter_spacing" format="float" type="dimen">1.1</item>
 
 </resources>

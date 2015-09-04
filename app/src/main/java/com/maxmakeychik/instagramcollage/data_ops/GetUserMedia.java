@@ -34,10 +34,12 @@ public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, 
 
     @Override
     protected Pair<String, ArrayList<Media>> doInBackground(String... params) {
-        uriBuilder = Uri.parse(String.format(BASE_URL, params[0])).buildUpon();
-        if (params[1] != null)
-            uriBuilder.appendQueryParameter(NEXT_URL_TAG, params[1]);
-        uriBuilder.appendQueryParameter(CLIENT_ID_TAG, CLIENT_ID);
+        if (params[1] == null) {
+            uriBuilder = Uri.parse(String.format(BASE_URL, params[0])).buildUpon();
+            uriBuilder.appendQueryParameter(CLIENT_ID_TAG, CLIENT_ID);
+        }
+        else
+            uriBuilder = Uri.parse(params[1]).buildUpon();
         Log.d(TAG, "GetUserMedia " + uriBuilder.toString());
 
         OkHttpClient httpClient = new OkHttpClient();
@@ -53,7 +55,7 @@ public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, 
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if ("media".equals(jsonObject.getString("type")))
+                    if ("image".equals(jsonObject.getString("type")))
                         mediaList.add(new Media(jsonObject));
                 } catch (JSONException e) {
                     e.printStackTrace();

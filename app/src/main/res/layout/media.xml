@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager_linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,17 +8,16 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <com.instaforex.forextv.view.RecView
-        android:id="@+id/rec_view"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:scrollbars="vertical"/>
+        android:layout_height="match_parent" />
 
     <Button
+        android:id="@+id/makeCollageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/toolbar"
-        android:text="@string/collage"/>
+        android:layout_gravity="bottom"
+        style="@style/CollageButton" />
 
-</RelativeLayout>
+</LinearLayout>

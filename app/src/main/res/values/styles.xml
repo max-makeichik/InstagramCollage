@@ -1,16 +1,57 @@
 <resources>
 
-    <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
-        <item name="android:minWidth">0dp</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:scaleType">centerInside</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+
+    <style name="ToolbarTitle">
+        <item name="android:textSize">@dimen/toolbar_title_textsize</item>
+        <item name="android:textColor">@color/toolbar_title</item>
+        <item name="android:fontFamily">roboto-medium</item>
     </style>
 
-    <style name="myToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
-        <item name="android:paddingRight">10dp</item>
+    <style name="CollageButton">
+        <item name="android:paddingTop">@dimen/collage_padding_top</item>
+        <item name="android:paddingBottom">@dimen/collage_padding_top</item>
+        <item name="android:background">@color/toolbar</item>
+        <item name="android:text">@string/collage</item>
+        <item name="android:textSize">@dimen/media_likes_textsize</item>
+        <item name="android:textColor">@color/collage</item>
+        <item name="android:fontFamily">roboto-medium</item>
+        <item name="android:letterSpacing">@dimen/collage_letter_spacing</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MediaImage">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="MediaDate">
+        <item name="android:layout_gravity">top</item>
+        <item name="android:paddingTop">@dimen/media_date_padding_top</item>
+        <item name="android:textSize">@dimen/media_likes_textsize</item>
+        <item name="android:textColor">@color/date</item>
+        <item name="android:fontFamily">roboto-regular</item>
+    </style>
+
+    <style name="MediaText">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/media_text_textsize</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">roboto-light</item>
+        <item name="android:layout_marginTop">@dimen/media_date_margin_top</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="MediaLikes">
+        <item name="android:textSize">@dimen/media_likes_textsize</item>
+        <item name="android:textColor">@color/likes</item>
+        <item name="android:fontFamily">roboto-regular</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_marginTop">@dimen/media_date_margin_top</item>
+        <item name="android:drawablePadding">@dimen/media_date_drawable_padding</item>
+        <item name="android:drawableRight">@drawable/like_icon</item>
     </style>
 
 </resources>

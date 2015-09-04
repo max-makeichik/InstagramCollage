@@ -23,6 +23,7 @@
 
         <activity
             android:name=".MostLikedListActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name" >
         </activity>
 

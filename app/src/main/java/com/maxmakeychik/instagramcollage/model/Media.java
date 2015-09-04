@@ -2,9 +2,15 @@ package com.maxmakeychik.instagramcollage.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Media implements Parcelable {
 
@@ -15,10 +21,12 @@ public class Media implements Parcelable {
     private String imageUrl;
     private int imageWidth;
     private int imageHeight;
+    private static final String TAG = "Media";
 
     @Override
     public String toString() {
-        return "PlaylistItem{" +
+        return "Media{" +
+                ", date='" + getDate() + '\'' +
                 ", text='" + text + '\'' +
                 ", likesCount='" + likesCount + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
@@ -27,7 +35,7 @@ public class Media implements Parcelable {
 
     public Media(JSONObject jsonObject) throws JSONException {
         id = jsonObject.getString("id");
-        JSONObject caption = jsonObject.getJSONObject("caption");
+        JSONObject caption = jsonObject.optJSONObject("caption");
         if(caption != null)
             text = caption.getString("text");
         likesCount = jsonObject.getJSONObject("likes").getInt("count");
@@ -36,6 +44,7 @@ public class Media implements Parcelable {
         imageUrl = images.getJSONObject("standard_resolution").getString("url");
         imageWidth = images.getJSONObject("standard_resolution").getInt("width");
         imageHeight = images.getJSONObject("standard_resolution").getInt("height");
+        Log.d(TAG, "text " + text + ", likesCount " + likesCount + ", date " + date);
     }
 
     public String getText() {
@@ -46,8 +55,13 @@ public class Media implements Parcelable {
         return id;
     }
 
-    public long getDate() {
-        return date;
+    public String getDate() {
+        long timestampLong = date * 1000;
+        Date d = new Date(timestampLong);
+        DateFormat df = new SimpleDateFormat("d MMM yyyy");
+
+        System.out.println(df.format(d));
+        return df.format(d).toLowerCase();
     }
 
     public String getImageUrl() {
@@ -56,6 +70,10 @@ public class Media implements Parcelable {
 
     public int getLikesCount() {
         return likesCount;
+    }
+
+    public String getLikesCountString() {
+        return String.valueOf(likesCount);
     }
 
     public int getImageWidth() {
