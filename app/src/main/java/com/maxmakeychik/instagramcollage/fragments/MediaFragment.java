@@ -11,13 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.maxmakeychik.instagramcollage.MainActivity;
+import com.maxmakeychik.instagramcollage.MediaActivity;
 import com.maxmakeychik.instagramcollage.R;
 import com.maxmakeychik.instagramcollage.adapters.MediaAdapter;
 import com.maxmakeychik.instagramcollage.model.Media;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MediaFragment extends Fragment {
 
@@ -51,6 +50,14 @@ public class MediaFragment extends Fragment {
         mediaList = getArguments().getParcelableArrayList(MEDIA_LIST_KEY);
         Log.d(TAG, "here set mediaList " + mediaList);
 
+        Button makeCollageButton = (Button) view.findViewById(R.id.makeCollageButton);
+        makeCollageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MediaActivity) getActivity()).makeCollage();
+            }
+        });
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -60,7 +67,13 @@ public class MediaFragment extends Fragment {
         if (savedInstanceState != null)
             mediaList = savedInstanceState.getParcelableArrayList(MEDIA_LIST_KEY);
 
-        mediaAdapter = new MediaAdapter(mediaList, getActivity());
+        mediaAdapter = new MediaAdapter(mediaList, getActivity(), new MediaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Media media, boolean checked) {  //  check icon clicked
+                Log.d(TAG, "position");
+                ((MediaActivity) getActivity()).changeTitle(media, checked);
+            }
+        });
         recyclerView.setAdapter(mediaAdapter);
 
         return view;

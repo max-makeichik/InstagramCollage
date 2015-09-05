@@ -18,15 +18,21 @@ import java.util.List;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
 
-    final String TAG = "MediaAdapter";
+    public interface OnItemClickListener {
+        void onItemClick(Media media, boolean checked);
+    }
+
     private List<Media> mediaList;
     private Context ctx;
+    private OnItemClickListener mOnItemClickListener;
 
     private static final boolean DEBUG = false;
+    final String TAG = "MediaAdapter";
 
-    public MediaAdapter(List<Media> mediaList, Context ctx) {
+    public MediaAdapter(List<Media> mediaList, Context ctx, OnItemClickListener onItemClickListener) {
         this.mediaList = mediaList;
         this.ctx = ctx;
+        mOnItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -37,7 +43,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Media media = mediaList.get(position);
+        final Media media = mediaList.get(position);
 
         Picasso.with(ctx).load(media.getImageUrl()).into(holder.image, new Callback() {
             @Override
@@ -50,10 +56,12 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
                         if((holder.checkIcon.getTag() == null) || (int) holder.checkIcon.getTag() == 0) {
                             holder.checkIcon.setImageDrawable(ctx.getResources().getDrawable(R.drawable.check_1_icon));
                             holder.checkIcon.setTag(1);
+                            mOnItemClickListener.onItemClick(media, true);
                         }
                         else{
                             holder.checkIcon.setImageDrawable(ctx.getResources().getDrawable(R.drawable.check_0_icon));
                             holder.checkIcon.setTag(0);
+                            mOnItemClickListener.onItemClick(media, false);
                         }
                     }
                 });
@@ -66,16 +74,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
         holder.date.setText(media.getDate());
         holder.text.setText(media.getText());
         holder.likes.setText(media.getLikesCountString());
-        /*String marks = mediaList.get(position).getMarks();
-        if (marks != null && !marks.equals("")) {
-            holder.markIcon.setVisibility(View.VISIBLE);
-            holder.markIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //showMarks(position);
-                }
-            });
-        }*/
     }
 
     @Override

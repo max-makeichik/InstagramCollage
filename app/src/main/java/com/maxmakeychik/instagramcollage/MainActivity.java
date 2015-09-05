@@ -97,13 +97,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMedia() {
-        Intent intent = new Intent(ctx, MostLikedListActivity.class);
         Log.d(TAG, "mediaList: " + mediaList);
         ArrayList<Media> mostLikedImages = getMostLikedImages();
         Log.d(TAG, "getMostLikedImages " + mostLikedImages);
-        if(mostLikedImages.size() > 0)
+        if(mostLikedImages.size() > 0) {
+            Intent intent = new Intent(ctx, MediaActivity.class);
             intent.putParcelableArrayListExtra(MEDIA_LIST_KEY, mostLikedImages);
-        startActivity(intent);
+            startActivity(intent);
+        }
+        else
+            Toast.makeText(ctx, getString(R.string.error_no_pictures), Toast.LENGTH_SHORT).show();
     }
 
     private ArrayList<Media> getMostLikedImages() {
@@ -115,9 +118,8 @@ public class MainActivity extends AppCompatActivity {
         };
         ArrayList<Media> mostLikedMediaList = new ArrayList<>(NUMBER_OF_PHOTOS_FOR_COLLAGE);
         for (int i = 0; i < NUMBER_OF_PHOTOS_FOR_COLLAGE; i++) {
-            if (mediaList.size() == 0) {
+            if (mediaList.size() == 0)
                 return mostLikedMediaList;
-            }
             Media mostLikedMedia = Collections.max(mediaList, comparator);
             mostLikedMediaList.add(mostLikedMedia);
             mediaList.remove(mostLikedMedia);

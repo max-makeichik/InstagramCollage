@@ -4,16 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:scrollbars="vertical" />
+    <ImageView
+        android:id="@+id/collage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"/>
 
     <Button
-        android:id="@+id/makeCollageButton"
+        android:id="@+id/printButton"
         style="@style/CollageButton"
+        android:text="@string/print"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
