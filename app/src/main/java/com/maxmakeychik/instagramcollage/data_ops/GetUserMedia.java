@@ -2,7 +2,6 @@ package com.maxmakeychik.instagramcollage.data_ops;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.util.Pair;
 
 import com.maxmakeychik.instagramcollage.model.Media;
@@ -23,31 +22,29 @@ public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, 
     private static final String CLIENT_ID_TAG = "client_id";
     private static final String CLIENT_ID = "a4b3cde66ca64b7e9b6c390220f21085";
     private static final String NEXT_URL_TAG = "next_url";
-    private static final String DATA_KEY = "data";
+    private static final String DATA_KEY = "data", IMAGE_TAG = "image", TYPE_TAG = "type";
     private static final String PAGINATION_KEY = "pagination";
     private static final String TAG = "GetUserMedia";
-
-    private Uri.Builder uriBuilder;
 
     public GetUserMedia() {
     }
 
     @Override
     protected Pair<String, ArrayList<Media>> doInBackground(String... params) {
+        Uri.Builder uriBuilder;
         if (params[1] == null) {
             uriBuilder = Uri.parse(String.format(BASE_URL, params[0])).buildUpon();
             uriBuilder.appendQueryParameter(CLIENT_ID_TAG, CLIENT_ID);
         }
         else
             uriBuilder = Uri.parse(params[1]).buildUpon();
-        Log.d(TAG, "GetUserMedia " + uriBuilder.toString());
 
         OkHttpClient httpClient = new OkHttpClient();
         Request request = new Request.Builder().url(uriBuilder.toString()).build();
         try {
             Response response = httpClient.newCall(request).execute();
             JSONObject json = new JSONObject(response.body().string());
-            String nextPageUrl = json.getJSONObject(PAGINATION_KEY).optString("next_url", null);
+            String nextPageUrl = json.getJSONObject(PAGINATION_KEY).optString(NEXT_URL_TAG, null);
 
             ArrayList<Media> mediaList = new ArrayList<>();
 
@@ -55,7 +52,7 @@ public abstract class GetUserMedia extends AsyncTask<String, Void, Pair<String, 
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if ("image".equals(jsonObject.getString("type")))
+                    if (IMAGE_TAG.equals(jsonObject.getString(TYPE_TAG)))
                         mediaList.add(new Media(jsonObject));
                 } catch (JSONException e) {
                     e.printStackTrace();

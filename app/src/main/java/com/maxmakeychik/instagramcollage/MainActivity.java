@@ -24,11 +24,13 @@ import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String MEDIA_LIST_KEY = "MEDIA_LIST";
-    private boolean isLoading = false;
-    EditText nickEditText;
+    private static final String MEDIA_LIST_KEY = "MEDIA_LIST", USERNAME_KEY = "USERNAME";
     private static final int NUMBER_OF_PHOTOS_FOR_COLLAGE = 3;
-    Context ctx;
+    private boolean isLoading = false;
+    private String userName = "";
+
+    private EditText nickEditText;
+    private Context ctx;
     private ArrayList<Media> mediaList = new ArrayList<>();
     private static final String TAG = "MainActivity";
 
@@ -46,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
                     if (!isLoading) {
                         isLoading = true;
                         hideKeyboard();
-                        getUserIdByName(nickEditText.getText().toString());
+                        userName = nickEditText.getText().toString();
+                        getUserIdByName(userName);
                     }
                     return true;
                 }
                 return false;
             }
         });
-        getUserIdByName("max.max.nemax");    //  test
     }
 
     private void hideKeyboard() {
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         if(mostLikedImages.size() > 0) {
             Intent intent = new Intent(ctx, MediaActivity.class);
             intent.putParcelableArrayListExtra(MEDIA_LIST_KEY, mostLikedImages);
+            intent.putExtra(USERNAME_KEY, userName);
             startActivity(intent);
         }
         else

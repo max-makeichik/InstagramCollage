@@ -8,15 +8,11 @@
 
     <dimen name="list_item_height">136dp</dimen>
     <dimen name="list_item_margin">4dp</dimen>  <!--4 + 4 = 8-->
-    <dimen name="list_item_content_padding_right">16dp</dimen>
-
 
     <dimen name="media_data_margin_right">16dp</dimen>
 
-    <dimen name="media_date_height">16dp</dimen>
     <dimen name="media_date_padding_top">16dp</dimen>
 
-    <dimen name="media_text_height">32dp</dimen>
     <dimen name="media_text_textsize">28sp</dimen>
 
     <dimen name="media_likes_height">16dp</dimen>

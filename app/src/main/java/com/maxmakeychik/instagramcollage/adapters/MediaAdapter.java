@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maxmakeychik.instagramcollage.R;
 import com.maxmakeychik.instagramcollage.model.Media;
@@ -18,16 +19,15 @@ import java.util.List;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> {
 
-    public interface OnItemClickListener {
-        void onItemClick(Media media, boolean checked);
-    }
-
     private List<Media> mediaList;
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
 
-    private static final boolean DEBUG = false;
     final String TAG = "MediaAdapter";
+
+    public interface OnItemClickListener {
+        void onItemClick(Media media, boolean checked);
+    }
 
     public MediaAdapter(List<Media> mediaList, Context ctx, OnItemClickListener onItemClickListener) {
         this.mediaList = mediaList;
@@ -68,7 +68,9 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder> 
             }
 
             @Override
-            public void onError() {}
+            public void onError() {
+                Toast.makeText(ctx, ctx.getResources().getString(R.string.error_loading_image), Toast.LENGTH_SHORT).show();
+            }
         });
 
         holder.date.setText(media.getDate());

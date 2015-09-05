@@ -53,6 +53,5 @@
         <item name="android:drawableRight">@drawable/like_icon</item>
         <item name="android:layout_marginBottom">@dimen/media_likes_margin_bottom</item>
     </style>
-    <!--<item name="android:layout_marginTop">@dimen/media_date_margin_top</item>-->
 
 </resources>

@@ -18,11 +18,12 @@ import java.util.ArrayList;
 
 public class MediaActivity extends AppCompatActivity {
 
-    private static final String TAG_MEDIA_FRAGMENT = "MEDIA_FRAGMENT";
     private static final String MEDIA_LIST_KEY = "MEDIA_LIST";
     private static final String CHECKED_MEDIA_LIST_KEY = "CHECKED_MEDIA_LIST";
+    private static final String USERNAME_KEY = "USERNAME";
     private ArrayList<Media> mediaList, checkedMediaList = new ArrayList<>();
     private TextView toolbarTitle;
+    private String userName = "";
     private static final String TAG = "MediaActivity";
 
     @Override
@@ -43,6 +44,7 @@ public class MediaActivity extends AppCompatActivity {
         if(savedInstanceState != null) {
             mediaList = savedInstanceState.getParcelableArrayList(MEDIA_LIST_KEY);
             checkedMediaList = savedInstanceState.getParcelableArrayList(CHECKED_MEDIA_LIST_KEY);
+            userName = savedInstanceState.getString(USERNAME_KEY);
         }
         setToolbarTitle();
 
@@ -56,9 +58,10 @@ public class MediaActivity extends AppCompatActivity {
     }
 
     private void handleIntent(Intent intent){
-        if(intent.getParcelableArrayListExtra(MEDIA_LIST_KEY) != null)
+        if(intent.getParcelableArrayListExtra(MEDIA_LIST_KEY) != null) {
             mediaList = intent.getParcelableArrayListExtra(MEDIA_LIST_KEY);
-        Log.d(TAG, "mediaList " + mediaList);
+            userName = intent.getStringExtra(USERNAME_KEY);
+        }
         showMedia();
     }
 
@@ -91,6 +94,7 @@ public class MediaActivity extends AppCompatActivity {
             Fragment collageFragment = new CollageFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(MEDIA_LIST_KEY, checkedMediaList);
+            bundle.putString(USERNAME_KEY, userName);
             collageFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, collageFragment, null)
@@ -113,5 +117,6 @@ public class MediaActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(MEDIA_LIST_KEY, mediaList);
         outState.putParcelableArrayList(CHECKED_MEDIA_LIST_KEY, checkedMediaList);
+        outState.putString(USERNAME_KEY, userName);
     }
 }

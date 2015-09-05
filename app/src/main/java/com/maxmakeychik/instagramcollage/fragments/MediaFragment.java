@@ -44,7 +44,6 @@ public class MediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
 
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.favorites));
         view = inflater.inflate(R.layout.media_list, container, false);
 
         mediaList = getArguments().getParcelableArrayList(MEDIA_LIST_KEY);
