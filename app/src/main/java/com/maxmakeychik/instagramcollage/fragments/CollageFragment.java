@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class CollageFragment extends Fragment {
 
-    private static final String MEDIA_LIST_KEY = "MEDIA_LIST", USERNAME_KEY = "USERNAME";;
+    private static final String MEDIA_LIST_KEY = "MEDIA_LIST", USERNAME_KEY = "USERNAME";
     private static final int COLLAGE_PHOTOS_MARGIN = 15;
     private String userName = "";
 
