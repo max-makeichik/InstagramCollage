@@ -33,6 +33,7 @@ public class CollageFragment extends Fragment {
     private String userName = "";
 
     private ArrayList<Media> checkedMediaList;
+    Bitmap collageBitmap;
     private static String TAG = "CollageFragment";
 
     public CollageFragment() {
@@ -68,13 +69,13 @@ public class CollageFragment extends Fragment {
         ImageView collage = (ImageView) view.findViewById(R.id.collage);
         Button printButton = (Button) view.findViewById(R.id.printButton);
 
-        final Bitmap bitmap = makeCollage();
-        if (bitmap != null) {
-            collage.setImageBitmap(bitmap);
+        makeCollage();
+        if (collageBitmap != null) {
+            collage.setImageBitmap(collageBitmap);
             printButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    printBitmap(bitmapToUri(bitmap));
+                    printBitmap(bitmapToUri(collageBitmap));
                 }
             });
         } else
@@ -99,14 +100,14 @@ public class CollageFragment extends Fragment {
         startActivity(printIntent);
     }
 
-    private Bitmap makeCollage() {
+    private void makeCollage() {
         final int width, height, imagesCount = checkedMediaList.size();
 
         width = checkedMediaList.get(0).getImageWidth();
         height = imagesCount * checkedMediaList.get(0).getImageHeight() + (imagesCount - 1) * COLLAGE_PHOTOS_MARGIN;
 
-        final Bitmap canvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        final Canvas canvas = new Canvas(canvasBitmap);
+        collageBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(collageBitmap);
 
         for (final Media media : checkedMediaList) {
             Picasso.with(getActivity()).load(media.getImageUrl()).into(new Target() {
@@ -128,7 +129,6 @@ public class CollageFragment extends Fragment {
                 }
             });
         }
-        return canvasBitmap;
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -142,5 +142,14 @@ public class CollageFragment extends Fragment {
         super.onDestroyView();
         Log.d(TAG, "onDestroyView");
         view = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(collageBitmap != null) {
+            collageBitmap.recycle();
+            collageBitmap = null;
+        }
     }
 }
